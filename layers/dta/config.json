@@ -77,6 +77,13 @@
     "location": "uksouth"
   },
 
+  "purview": {
+  "inflate": true,
+  "name": "purview-prod",
+  "managedResourceGroupName": "rg-managed-purview-prod",
+  "skuName": "Standard"
+},
+
   "appTeamRg": {
     "name": "rg-appteam",
     "location": "uksouth"
