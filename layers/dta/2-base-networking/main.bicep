@@ -2,13 +2,14 @@ param config object
 param coreRg object
 param appTeamRg object
 
+
 var inflate = config.baseNetworking.inflate
 
 var platformSubnets = config.baseNetworking.platformSubnets
 var applicationSubnets = config.baseNetworking.applicationSubnets
 
 // Platform VNET
-module platformVnet 'modules/az-virtual-network.bicep' = if (inflate) {
+module platformVnet '../../../modules/networking/az-virtual_network/vnet.bicep' = if (inflate) {
   name: 'platform-vnet'
   params: {
     name: config.baseNetworking.platformVnetName
@@ -20,7 +21,7 @@ module platformVnet 'modules/az-virtual-network.bicep' = if (inflate) {
 }
 
 // App Team VNET
-module applicationVnet 'modules/az-virtual-network.bicep' = if (inflate) {
+module applicationVnet '../../../modules/networking/az-virtual_network/vnet.bicep' = if (inflate) {
   name: 'application-vnet'
   params: {
     name: config.baseNetworking.applicationVnetName
@@ -32,11 +33,10 @@ module applicationVnet 'modules/az-virtual-network.bicep' = if (inflate) {
 }
 
 // Platform Subnets
-module platformSubnetsMod 'modules/az-subnet.bicep' = [for subnet in platformSubnets: {
+module platformSubnetsMod '../../../modules/networking/az-subnet/subnet.bicep' = [for subnet in platformSubnets: {
   name: 'platform-subnet-${subnet.subnetName}'
   params: {
     name: subnet.subnetName
-    resourceGroupName: coreRg.name
     vnetName: config.baseNetworking.platformVnetName
     addressPrefixes: subnet.addressPrefixes
   }
@@ -44,11 +44,10 @@ module platformSubnetsMod 'modules/az-subnet.bicep' = [for subnet in platformSub
 }]
 
 // Application Subnets
-module applicationSubnetsMod 'modules/az-subnet.bicep' = [for subnet in applicationSubnets: {
+module applicationSubnetsMod '../../../modules/networking/az-subnet/subnet.bicep' = [for subnet in applicationSubnets: {
   name: 'application-subnet-${subnet.subnetName}'
   params: {
     name: subnet.subnetName
-    resourceGroupName: appTeamRg.name
     vnetName: config.baseNetworking.applicationVnetName
     addressPrefixes: subnet.addressPrefixes
   }
