@@ -1,0 +1,27 @@
+{
+    "location": {
+      "value": "eastus"
+    },
+    "purviewAccountName": {
+      "value": "dta-purview"
+    },
+    "managedResourceGroupName": {
+      "value": "dta-purview-managed-rg"
+    },
+    "skuName": {
+      "value": "Standard"
+    },
+    "skuCapacity": {
+      "value": 1
+    },
+    "publicNetworkAccess": {
+      "value": "Enabled"
+    },
+    "managedResourcesPublicNetworkAccess": {
+      "value": "Enabled"
+    },
+    "managedEventHubState": {
+      "value": "Enabled"
+    }
+  }
+  

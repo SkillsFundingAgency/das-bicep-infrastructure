@@ -1,0 +1,35 @@
+{
+  "location": {
+    "value": "eastus"
+  },
+  "vnetName": {
+    "value": "dta-vnet"
+  },
+  "addressSpace": {
+    "value": ["10.0.0.0/16"]
+  },
+  "FirewallPublicIpName": {
+    "value": "firewall-public-ip"
+  },
+  "FirewallPublicIpSku": {
+    "value": "Standard"
+  },
+  "FirewallSubnetName": {
+    "value": "AzureFirewallSubnet"
+  },
+  "FirewallSubnetPrefix": {
+    "value": "10.0.0.0/24"
+  },
+  "AppGatewaySubnetName": {
+    "value": "appgw-subnet"
+  },
+  "AppGatewaySubnetPrefix": {
+    "value": "10.0.1.0/24"
+  },
+  "AppGatewayPublicIpName": {
+    "value": "appgw-public-ip"
+  },
+  "AppGatewayPublicIpSku": {
+    "value": "Standard"
+  }
+}
