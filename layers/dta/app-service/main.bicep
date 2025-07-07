@@ -1,20 +1,15 @@
 targetScope = 'resourceGroup'
 
-param location string
-param appServicePlanName string
-param skuName string
-param skuTier string
-param capacity int
-param webAppName string
+param appService object
 
 module appServicePlanModule '../../../modules/app-service/appServicePlan.bicep' = {
   name: 'appServicePlanDeployment'
   params: {
-    name: appServicePlanName
-    location: location
-    skuName: skuName
-    skuTier: skuTier
-    capacity: capacity
+    name: appService.appServicePlanName
+    location: appService.location
+    skuName: appService.skuName
+    skuTier: appService.skuTier
+    capacity: appService.capacity
   }
 }
 
@@ -24,8 +19,8 @@ module webAppModule '../../../modules/app-service/windowsWebApp.bicep' = {
     appServicePlanModule
   ]
   params: {
-    webAppName: webAppName
-    location: location
+    webAppName: appService.webAppName
+    location: appService.location
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
   }
 }

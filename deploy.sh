@@ -1,14 +1,14 @@
-1. az deployment group create \                                     
-  --resource-group test-rg \
-  --template-file layers/dta/network/main.bicep \ 
-  --parameters @layers/dta/network/config.json  
+az deployment group create \
+  --resource-group das-dta-hub-rg-new \
+  --template-file layers/dta/network/main.bicep \    
+  --parameters network="$(jq -c .network layers/dta/config.json)" 
 
-2. az deployment group create \                                                             
+az deployment group create \
   --resource-group test-rg \
   --template-file layers/dta/app-service/main.bicep \
-  --parameters @layers/dta/app-service/config.json
+  --parameters appService="$(jq -c .appService layers/dta/config.json)"
 
-3. az deployment group create \                                     
+az deployment group create \
   --resource-group test-rg \
   --template-file layers/dta/security/main.bicep \
-  --parameters @layers/dta/security/config.json 
+  --parameters security="$(jq -c .security layers/dta/config.json)"
