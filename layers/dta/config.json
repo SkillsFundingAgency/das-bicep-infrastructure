@@ -1,28 +1,107 @@
 {
+  "resourceGroup": {
+    "name": "test-rg",
+    "location": "eastus"
+  },
+
   "network": {
-    "location": "westeurope",
-    "vnetName": "das-dta-vnet-nh",
-    "addressSpace": ["10.5.0.0/16"],
-    "FirewallPublicIpName": "das-dta-fw-pip",
+    "location": "eastus",
+    "vnetName": "dta-vnet",
+    "addressSpace": ["10.0.0.0/16"],
+    "FirewallPublicIpName": "firewall-public-ip",
     "FirewallPublicIpSku": "Standard",
     "FirewallSubnetName": "AzureFirewallSubnet",
-    "FirewallSubnetPrefix": "10.5.0.0/24",
-    "AppGatewaySubnetName": "appgw-subnet",
-    "AppGatewaySubnetPrefix": "10.5.1.0/24",
-    "AppGatewayPublicIpName": "appgw-public-ip",
-    "AppGatewayPublicIpSku": "Standard"
+    "FirewallSubnetPrefix": "10.0.0.0/24",
+    "appGatewaySubnetName": "appgw-subnet",
+    "appGatewaySubnetPrefix": "10.0.1.0/24",
+    "appGatewayPublicIpName": "appgw-public-ip",
+    "appGatewayPublicIpSku": "Standard",
+    "vmSubnetName": "vm-subnet",
+    "vmSubnetPrefix": "10.0.2.0/24",
+    "vmPublicIpName": "vm-public-ip",
+    "vmPublicIpSku": "Standard",
+    "networkSecurityGroup": {
+      "name": "dta-nsg",
+      "securityRules": [
+        {
+          "name": "AllowHTTP",
+          "priority": 100,
+          "direction": "Inbound",
+          "access": "Allow",
+          "protocol": "Tcp",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "destinationPortRange": "80",
+          "sourcePortRange": "*"
+        },
+        {
+          "name": "AllowHTTPS",
+          "priority": 110,
+          "direction": "Inbound",
+          "access": "Allow",
+          "protocol": "Tcp",
+          "sourceAddressPrefix": "*",
+          "destinationAddressPrefix": "*",
+          "destinationPortRange": "443",
+          "sourcePortRange": "*"
+        }
+      ]
+    },
+    "vmNic": {
+      "name": "dta-vm-nic",
+      "privateIPAllocationMethod": "Dynamic"
+    },
+    "routeTable": {
+      "name": "dta-route-table",
+      "disableBgpRoutePropagation": false,
+      "routes": [
+        {
+          "name": "defaultRoute",
+          "addressPrefix": "0.0.0.0/0",
+          "nextHopType": "Internet",
+          "nextHopIpAddress": ""
+        }
+      ]
+    },
+    "apimSubnetName": "apim-subnet",
+    "apimSubnetPrefix": "10.0.3.0/24"
   },
 
-  "appService": {
-    "location": "eastus",
-    "appServicePlanName": "dta-appservice-plan",
-    "skuName": "P1v2",
-    "skuTier": "PremiumV2",
-    "capacity": 1,
-    "webAppName": "dta-webapp"
-  },
 
-
+  "compute": {
+      "location": "eastus",
+      "appServicePlanName": "dta-appservice-plan",
+      "skuName": "P1v2",
+      "skuTier": "PremiumV2",
+      "capacity": 1,
+      "webAppName": "dta-webapp",
+      "VmNicName": "dta-vm-nic",
+      "vmName": "dta-windows-vm",
+      "vmAdminUsername": "adminuser",
+      "vmAdminPassword": "YourStrongPassword123!", 
+      "vmSize": "Standard_D2s_v3",
+      "vmImage": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2022-datacenter",
+        "version": "latest"
+      },
+      "vmssName": "dta-vmss",
+      "vnetName": "dta-vnet",
+      "vmssSubnetName": "vm-subnet",
+      "vmssAdminUsername": "adminuser",
+      "vmssAdminPassword": "YourStrongPassword123!",
+      "vmssVmSize": "Standard_D2s_v3",
+      "vmssInstanceCount": 2,
+      "vmssImage": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2022-datacenter",
+        "version": "latest"
+      }
+    },
+  
+  
   "security": {
     "location": "eastus",
     "firewallName": "dta-fw",
@@ -52,5 +131,29 @@
     "publicNetworkAccess": "Enabled",
     "managedResourcesPublicNetworkAccess": "Enabled",
     "managedEventHubState": "Enabled"
+  },
+
+
+  "monitoring": {
+    "location": "eastus",
+    "logAnalytics": {
+      "name": "dta-law",
+      "sku": "PerGB2018",
+      "retentionInDays": 30
+    },
+    "appInsights": {
+      "name": "dta-appinsights"
+    }
+  },
+
+  "apim": {
+    "vnetName": "dta-vnet",
+    "apimSubnetName": "apim-subnet",
+    "location": "eastus",
+    "apimName": "my-apim-service",
+    "apimSkuName": "Developer",
+    "apimSkuCapacity": 1,
+    "apimPublisherEmail": "admin@example.com",
+    "apimPublisherName": "My Company"
   }
 }
