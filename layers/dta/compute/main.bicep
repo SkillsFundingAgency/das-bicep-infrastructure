@@ -13,15 +13,25 @@ module appServicePlanModule '../../../modules/app-service/appServicePlan.bicep' 
   }
 }
 
+module userAssignedIdentityModule '../../../modules/user_assigned_identity/userAssignedIdentity.bicep' = {
+  name: 'userAssignedIdentityDeployment'
+  params: {
+    name: compute.userAssignedIdentityName
+    location: compute.location
+  }
+}
+
 module webAppModule '../../../modules/app-service/windowsWebApp.bicep' = {
   name: 'windowsWebAppDeployment'
   dependsOn: [
     appServicePlanModule
+    userAssignedIdentityModule
   ]
   params: {
     webAppName: compute.webAppName
     location: compute.location
     appServicePlanId: appServicePlanModule.outputs.appServicePlanId
+    userAssignedIdentityId: userAssignedIdentityModule.outputs.id
   }
 }
 
@@ -70,3 +80,4 @@ module vmssModule '../../../modules/vmss/vmss.bicep' = {
     imageVersion: compute.vmssImage.version
   }
 }
+

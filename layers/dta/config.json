@@ -69,37 +69,38 @@
 
 
   "compute": {
-      "location": "eastus",
-      "appServicePlanName": "dta-appservice-plan",
-      "skuName": "P1v2",
-      "skuTier": "PremiumV2",
-      "capacity": 1,
-      "webAppName": "dta-webapp",
-      "VmNicName": "dta-vm-nic",
-      "vmName": "dta-windows-vm",
-      "vmAdminUsername": "adminuser",
-      "vmAdminPassword": "YourStrongPassword123!", 
-      "vmSize": "Standard_D2s_v3",
-      "vmImage": {
-        "publisher": "MicrosoftWindowsServer",
-        "offer": "WindowsServer",
-        "sku": "2022-datacenter",
-        "version": "latest"
-      },
-      "vmssName": "dta-vmss",
-      "vnetName": "dta-vnet",
-      "vmssSubnetName": "vm-subnet",
-      "vmssAdminUsername": "adminuser",
-      "vmssAdminPassword": "YourStrongPassword123!",
-      "vmssVmSize": "Standard_D2s_v3",
-      "vmssInstanceCount": 2,
-      "vmssImage": {
-        "publisher": "MicrosoftWindowsServer",
-        "offer": "WindowsServer",
-        "sku": "2022-datacenter",
-        "version": "latest"
-      }
+    "location": "eastus",
+    "appServicePlanName": "dta-appservice-plan",
+    "skuName": "P1v2",
+    "skuTier": "PremiumV2",
+    "capacity": 1,
+    "webAppName": "dta-webapp",
+    "userAssignedIdentityName": "web-app-user-assigned-identity",
+    "VmNicName": "dta-vm-nic",
+    "vmName": "dta-windows-vm",
+    "vmAdminUsername": "adminuser",
+    "vmAdminPassword": "YourStrongPassword123!", 
+    "vmSize": "Standard_D2s_v3",
+    "vmImage": {
+      "publisher": "MicrosoftWindowsServer",
+      "offer": "WindowsServer",
+      "sku": "2022-datacenter",
+      "version": "latest"
     },
+    "vmssName": "dta-vmss",
+    "vnetName": "dta-vnet",
+    "vmssSubnetName": "vm-subnet",
+    "vmssAdminUsername": "adminuser",
+    "vmssAdminPassword": "YourStrongPassword123!",
+    "vmssVmSize": "Standard_D2s_v3",
+    "vmssInstanceCount": 2,
+    "vmssImage": {
+      "publisher": "MicrosoftWindowsServer",
+      "offer": "WindowsServer",
+      "sku": "2022-datacenter",
+      "version": "latest"
+    }
+  },
   
   
   "security": {
