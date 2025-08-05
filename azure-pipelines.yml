@@ -15,10 +15,10 @@ parameters:
 
 resources:
   repositories:
-  - repository: das-hub-infrastructure
+  - repository: das-bicep-infrastructure
     type: github
     endpoint: SkillsFundingAgency
-    name: SkillsFundingAgency/das-hub-infrastructure
+    name: SkillsFundingAgency/das-bicep-infrastructure
     # ref: main
 
 variables:
