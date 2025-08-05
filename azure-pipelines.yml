@@ -13,6 +13,14 @@ parameters:
   - purview
   - security
 
+resources:
+  repositories:
+  - repository: das-hub-infrastructure
+    type: github
+    endpoint: SkillsFundingAgency
+    name: SkillsFundingAgency/das-hub-infrastructure
+    # ref: main
+
 variables:
   envVar: ${{ parameters.resource }}
 
@@ -28,7 +36,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -46,7 +54,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -64,7 +72,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -82,7 +90,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -100,7 +108,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -118,7 +126,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
@@ -133,7 +141,7 @@ stages:
     steps:
     - task: AzureCLI@2
       inputs:
-        azureSubscription: 'Azure-SC'
+        azureSubscription: 'SFA-DAS-DevTest-ARM'
         scriptType: 'bash'
         scriptLocation: 'inlineScript'
         inlineScript: |
