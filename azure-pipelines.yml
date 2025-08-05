@@ -1,0 +1,144 @@
+trigger: none
+
+parameters:
+- name: resource
+  displayName: 'Deploy-Resources'
+  type: string
+  values:
+  - resource-group
+  - network
+  - apim
+  - compute
+  - monitoring
+  - purview
+  - security
+
+variables:
+  envVar: ${{ parameters.resource }}
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+stages:
+- stage: Resource_Group
+  displayName: "Stage for deploying a resource group"
+  condition: eq(variables['envVar'], 'resource-group')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          az deployment sub create \
+            --name deploy-rg \
+            --location eastus \
+            --template-file layers/dta/resource-group/main.bicep \
+            --parameters resourceGroup="$(jq -c .resourceGroup layers/dta/config.json)"
+
+- stage: Network
+  displayName: "Stage for deploying network layer"
+  condition: eq(variables['envVar'], 'network')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          az deployment group create \
+            --resource-group $RG_NAME \
+            --template-file layers/dta/network/main.bicep \
+            --parameters network="$(jq -c .network layers/dta/config.json)"
+
+- stage: APIM
+  displayName: "Stage for deploying apim layer"
+  condition: eq(variables['envVar'], 'apim')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          az deployment group create \
+            --resource-group test-rg \
+            --template-file layers/dta/apim/main.bicep \
+            --parameters apim="$(jq -c .apim layers/dta/config.json)"
+
+- stage: Compute
+  displayName: "Stage for deploying compute layer"
+  condition: eq(variables['envVar'], 'compute')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          az deployment group create \
+            --resource-group test-rg \
+            --template-file layers/dta/compute/main.bicep \
+            --parameters compute="$(jq -c .compute layers/dta/config.json)"
+
+- stage: Monitoring
+  displayName: "Stage for deploying monitoring layer"
+  condition: eq(variables['envVar'], 'monitoring')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          az deployment group create \
+            --resource-group test-rg \
+            --template-file layers/dta/monitoring/main.bicep \
+            --parameters monitoring="$(jq -c .monitoring layers/dta/config.json)"
+
+- stage: Purview
+  displayName: "Stage for deploying purview layer"
+  condition: eq(variables['envVar'], 'purview')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          echo "Add az deployment command for purview"
+
+- stage: Security
+  displayName: "Stage for deploying security layer"
+  condition: eq(variables['envVar'], 'security')
+  jobs:
+  - job: Deploy
+    steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'Azure-SC'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          RG_NAME=$(jq -r '.resourceGroup.name' layers/dta/config.json)
+          az deployment group create \
+            --resource-group $RG_NAME \
+            --template-file layers/dta/network/main.bicep \
+            --parameters network="$(jq -c .network layers/dta/config.json)"
