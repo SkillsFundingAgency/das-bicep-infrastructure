@@ -41,6 +41,7 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           az upgrade --yes
+          echo "$(jq -c .network layers/dta/config.json)"
           az deployment sub create \
             --name das-dta-shared-bicep-rg \
             --location westeurope \
