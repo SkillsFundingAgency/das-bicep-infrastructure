@@ -13,8 +13,6 @@ resource pip 'Microsoft.Network/publicIPAddresses@2024-07-01' = {
   }
 }
 
-resource keyvault{ }
-secretname: 
-password: 
+
 output name string = pip.name
 output id string = pip.id
