@@ -41,8 +41,8 @@ stages:
         scriptLocation: 'inlineScript'
         inlineScript: |
           az deployment sub create \
-            --name deploy-rg \
-            --location eastus \
+            --name das-dta-shared-bicep-rg \
+            --location westeurope \
             --template-file layers/dta/resource-group/main.bicep \
             --parameters resourceGroup="$(jq -c .resourceGroup layers/dta/config.json)"
 
